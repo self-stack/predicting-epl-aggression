@@ -25,10 +25,10 @@ Historical data on Billboard's Hot 100, Billboard 200, Artists 100. I will only 
 [__datahub.io__](https://datahub.io/sports-data/english-premier-league#data)
 Ten year team performance records, each season in an individual CSV.
 
-
-
-
-## Project Scaffolding 
+<br>
+<br>
+<br>
+## Project Scaffolding, for my reference 
 
 **High Level Description:** You should answer the question of "What are you trying to do". Note, you will use ML, stats ect. You're trying to solve a problem, and as such, this bullet should focus on something that has general appeal.
 
