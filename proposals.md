@@ -3,10 +3,10 @@
 **My Approach:** Create binary column in song database against the Hot 100 whether the song has been listed or not, defining a time duration the song has been listed there (i.e. - 6 weeks on the Hot 100). Start with Logistic Regression to predict if a song is popular or not, and then model a Linear Regression to identify key features of song that make a song popular.<br>
 **Devilerables** (How will people react): I will deliver my findngs in a markdown file in my repo and slides for presentations.<br>
 **Data:**<br><br>
-[__Million Song Database__](http://millionsongdataset.com/)
+[__Million Song Database__](http://millionsongdataset.com/)<br>
 Million Songs of contemporary music. I have found the database is hosted on S3, 300GB in size. Sample sizes of the dataset available through academic sites. 
 
-[__Billboards API__](https://rapidapi.com/LDVIN/api/billboard-api/endpoints)
+[__Billboards API__](https://rapidapi.com/LDVIN/api/billboard-api/endpoints)<br>
 Historical data on Billboard's Hot 100, Billboard 200, Artists 100. I will only use data back to 1983, Billboard's home site admits the data prior is limited.
 
 *Nice to have:* Incorporate album art for albums via [__MusicBrainz Cover Art Archive API__](https://musicbrainz.org/doc/Cover_Art_Archive/API)
@@ -16,7 +16,7 @@ Historical data on Billboard's Hot 100, Billboard 200, Artists 100. I will only 
 **My Approach:** Boosted Gradient Descent. Starting with a mean regressor for mortaility in smokers.<br>
 **Deliverables** (How will people react): I will deliver my findngs in a markdown file in my repo and slides for presentations.<br>
 **Data:**<br>
-[__Kaggle__](https://www.kaggle.com/nhs/tobacco-use)
+[__Kaggle__](https://www.kaggle.com/nhs/tobacco-use)<br>
 Kaggle provides 5 seperate csv files on hospital admissions, pateint prescriptions, smoker data in bucketized age ranges,
 
 ## 3. Predict EPL championship qualifier teams
@@ -24,7 +24,7 @@ Kaggle provides 5 seperate csv files on hospital admissions, pateint prescriptio
 **My Approach:** Random Forest to classify team as qualifier or not. I will need to perform EDA further, but possibly Linear Regression to identify and engineering features to be used in the Random Forest<br>
 **Deliverables** (How will people react): I will deliver my findngs in a markdown file in my repo and slides for presentations.<br>
 **Data:**<br>
-[__datahub.io__](https://datahub.io/sports-data/english-premier-league#data)
+[__datahub.io__](https://datahub.io/sports-data/english-premier-league#data)<br>
 Ten year team performance records, each season in an individual CSV.
 
 <br><br><br>
