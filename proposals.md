@@ -12,10 +12,12 @@ Historical data on Billboard's Hot 100, Billboard 200, Artists 100. I will only 
 *Nice to have:* Incorporate album art for albums via [__MusicBrainz Cover Art Archive API__](https://musicbrainz.org/doc/Cover_Art_Archive/API)
 
 ## 2. Predict pateients suseptabilty to SAM
-**Description:**
-**My Approach:** Random Forest
+**Description:** I would like to predict mortality rate for smokers. 
+**My Approach:** Boosted Gradient Descent. Starting with a mean regressor for mortaility in smokers
 **Deliverables** (How will people react): I will deliver my findngs in a markdown file in my repo and slides for presentations.<br>
 **Data:**
+[__Kaggle__](https://www.kaggle.com/nhs/tobacco-use)
+Kaggle provides 5 seperate csv files on hospital admissions, pateint prescriptions, smoker data in bucketized age ranges,
 
 ## 3. Predict EPL championship qualifier teams
 **Description:** I would like to predict which to 2 teams out of the 40 in the English Premier League (soccer) will be championship qualifiers (league's Superbowl) based on 10 season historical team data.<br>
