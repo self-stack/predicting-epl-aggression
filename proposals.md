@@ -1,8 +1,9 @@
 ## 1. Predicting if a song is popular or not
-*Description:* I would like to predict if a song is popular based on featurized aspects of a song (track duration, start of song fade out, tempo, etc.). I will be using Billboard chart info for the metric if a song is popular or not. I have some options here, an API I found provided Hot 100 (The US music industry standard song popularity chart), Billboard 200 (), Artists 100 ().
-My Approach: Start with Logistic Regression to predict if a song is popular or not, and then model a Linear Regression to determine features of song that make a song popular.
-Devilerables (How will people react): Present findngs in markdown and slides
-Data: [__Million Song Database__](http://millionsongdataset.com/)
+**Description:** I would like to predict if a song is popular based on featurized aspects of a song (track duration, start of song fade out, tempo, etc.). I will be using Billboard chart info for the metric if a song is popular or not. I have some options here, an API I found provided Hot 100 (The US music industry standard song popularity chart), Billboard 200 (), Artists 100 ().<br>
+**My Approach:** Start with Logistic Regression to predict if a song is popular or not, and then model a Linear Regression to determine features of song that make a song popular.<br>
+**Devilerables:** (How will people react): I will deliver my findngs in a markdown file in my repo and slides for presentations.
+**Data:**
+ [__Million Song Database__](http://millionsongdataset.com/)
 - hosted on S3
 - 300GB size db
 - Also availble through academic sites
