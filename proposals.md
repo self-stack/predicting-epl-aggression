@@ -1,26 +1,27 @@
-## 1. Predicting if a song is popular or noti
-	*Description:* I am tring to predict if a song is popular based on featurized aspect of a song (track duration, start of song fade out, tempo, etc.). I will be using Billboard chart info for the metric if a song is popular or not. I have some options here, an API I found provide Hot 100 (current top 100 songs), Billboard 200 (), Artists 100 ().
-	My Approach: Start with Logistic Regression to predict if a song is popular or not, and then model a Linear Regression to determine features of song that make a song popular.
-	Devilerables (How will people react): Present findngs in markdown and slides
-	Data: [__Million Song Database__](http://millionsongdataset.com/)
-		- hosted on S3
-		- 300GB size db
-		- Also availble through academic sites
-		- Aqcuiring small sample for simple EDA
-	      [__Billboards API__](https://rapidapi.com/LDVIN/api/billboard-api/endpoints)
-	      Nice to have: Incorporate album art for albums [__MusicBrainz Cover Art Archive API__](https://musicbrainz.org/doc/Cover_Art_Archive/API)
+## 1. Predicting if a song is popular or not
+*Description:* I would like to predict if a song is popular based on featurized aspects of a song (track duration, start of song fade out, tempo, etc.). I will be using Billboard chart info for the metric if a song is popular or not. I have some options here, an API I found provided Hot 100 (The US music industry standard song popularity chart), Billboard 200 (), Artists 100 ().
+My Approach: Start with Logistic Regression to predict if a song is popular or not, and then model a Linear Regression to determine features of song that make a song popular.
+Devilerables (How will people react): Present findngs in markdown and slides
+Data: [__Million Song Database__](http://millionsongdataset.com/)
+- hosted on S3
+- 300GB size db
+- Also availble through academic sites
+- Aqcuiring small sample for simple EDA
+[__Billboards API__](https://rapidapi.com/LDVIN/api/billboard-api/endpoints)
+- Historical data up to 1983. Data older is inconsistent.
+Nice to have: Incorporate album art for albums [__MusicBrainz Cover Art Archive API__](https://musicbrainz.org/doc/Cover_Art_Archive/API)
 
 ## 2. Predicting smoking
-	Description:
-	My Approach: Random Forest
-	Deliverables: markdown
-	Data:
+Description:
+My Approach: Random Forest
+Deliverables: markdown
+Data:
 
 ## 3. Predict which two English Premier League
-	Description: I am trying to predict which two teams from the EPL will make it to the championship game
-	My Approach:
-	Deliverables: 
-	Data: [__datahub.io__](https://datahub.io/sports-data/english-premier-league#data)
+Description: I am trying to predict which two teams from the EPL will make it to the championship game
+My Approach:
+Deliverables: 
+Data: [__datahub.io__](https://datahub.io/sports-data/english-premier-league#data)
 
 
 
