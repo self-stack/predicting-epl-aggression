@@ -12,10 +12,10 @@ Historical data on Billboard's Hot 100, Billboard 200, Artists 100. I will only 
 *Nice to have:* Incorporate album art for albums via [__MusicBrainz Cover Art Archive API__](https://musicbrainz.org/doc/Cover_Art_Archive/API)
 
 ## 2. Predict pateients suseptabilty to SAM
-**Description:** I would like to predict mortality rate for smokers. 
-**My Approach:** Boosted Gradient Descent. Starting with a mean regressor for mortaility in smokers
+**Description:** I would like to predict mortality rate for smokers.<br> 
+**My Approach:** Boosted Gradient Descent. Starting with a mean regressor for mortaility in smokers.<br>
 **Deliverables** (How will people react): I will deliver my findngs in a markdown file in my repo and slides for presentations.<br>
-**Data:**
+**Data:**<br>
 [__Kaggle__](https://www.kaggle.com/nhs/tobacco-use)
 Kaggle provides 5 seperate csv files on hospital admissions, pateint prescriptions, smoker data in bucketized age ranges,
 
