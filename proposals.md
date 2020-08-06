@@ -11,6 +11,7 @@
 [__Billboards API__](https://rapidapi.com/LDVIN/api/billboard-api/endpoints)
 - Historical data up to 1983, data older than this is inconsistent.
 - Includes Hot 100, Billboard 200, and Artists 100.<br>
+
 *Nice to have:* Incorporate album art for albums via [__MusicBrainz Cover Art Archive API__](https://musicbrainz.org/doc/Cover_Art_Archive/API)
 
 ## 2. Predicting smoking
