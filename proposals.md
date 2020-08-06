@@ -18,8 +18,8 @@ Historical data on Billboard's Hot 100, Billboard 200, Artists 100. I will only 
 **Data:**
 
 ## 3. Predict which two English Premier League soccer teams will make it to the championship
-**Description:** I would like to predict
-**My Approach:** Random Forest
+**Description:** I would like to predict which to 2 teams out of the 40 in the EPL will be championship qualifiers.
+**My Approach:** Random Forest to classify team as qualifier or not.
 **Deliverables** (How will people react): I will deliver my findngs in a markdown file in my repo and slides for presentations.<br>
 **Data:**
 Description: I am trying to predict which two teams from the EPL will make it to the championship game
