@@ -17,7 +17,7 @@ Historical data on Billboard's Hot 100, Billboard 200, Artists 100. I will only 
 **Deliverables** (How will people react): I will deliver my findngs in a markdown file in my repo and slides for presentations.<br>
 **Data:**<br><br>
 [__Kaggle__](https://www.kaggle.com/nhs/tobacco-use)<br>
-Kaggle provides 5 seperate csv files on hospital admissions, pateint prescriptions, smoker data in bucketized age ranges,
+Seperate csv files on hospital admissions, pateint prescriptions, smoker data in bucketized age ranges, and other smoker data in the UK 2004-2015.
 
 ## 3. Predict EPL championship qualifier teams
 **Description:** I would like to predict which to 2 teams out of the 40 in the English Premier League (soccer) will be championship qualifiers (league's Superbowl) based on 10 season historical team data.<br>
