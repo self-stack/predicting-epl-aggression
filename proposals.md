@@ -23,6 +23,7 @@ Historical data on Billboard's Hot 100, Billboard 200, Artists 100. I will only 
 **Deliverables** (How will people react): I will deliver my findngs in a markdown file in my repo and slides for presentations.<br>
 **Data:**<br>
 [__datahub.io__](https://datahub.io/sports-data/english-premier-league#data)
+Ten year team performance records, each season in an individual CSV.
 
 
 
