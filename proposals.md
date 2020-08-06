@@ -3,7 +3,7 @@
 **My Approach:** Create binary column in song database against the Hot 100 whether the song has been listed or not, defining a time duration the song has been listed there (i.e. - 6 weeks on the Hot 100). Start with Logistic Regression to predict if a song is popular or not, and then model a Linear Regression to identify key features of song that make a song popular.<br>
 **Devilerables** (How will people react): I will deliver my findngs in a markdown file in my repo and slides for presentations.<br>
 **Data:**<br>
- [__Million Song Database__](http://millionsongdataset.com/)
+[__Million Song Database__](http://millionsongdataset.com/)
 Million Songs of contemporary music. I have found the database is hosted on S3, 300GB in size. Sample sizes of the dataset available through academic sites. 
 
 [__Billboards API__](https://rapidapi.com/LDVIN/api/billboard-api/endpoints)
@@ -17,15 +17,12 @@ Historical data on Billboard's Hot 100, Billboard 200, Artists 100. I will only 
 **Deliverables** (How will people react): I will deliver my findngs in a markdown file in my repo and slides for presentations.<br>
 **Data:**
 
-## 3. Predict which two English Premier League soccer teams will make it to the championship
-**Description:** I would like to predict which to 2 teams out of the 40 in the EPL will be championship qualifiers.
-**My Approach:** Random Forest to classify team as qualifier or not.
+## 3. Predict EPL championship qualifier teams
+**Description:** I would like to predict which to 2 teams out of the 40 in the EPL will be championship qualifiers (league's superbowl).<br>
+**My Approach:** Random Forest to classify team as qualifier or not.<br>
 **Deliverables** (How will people react): I will deliver my findngs in a markdown file in my repo and slides for presentations.<br>
-**Data:**
-Description: I am trying to predict which two teams from the EPL will make it to the championship game
-My Approach:
-Deliverables: 
-Data: [__datahub.io__](https://datahub.io/sports-data/english-premier-league#data)
+**Data:**<br>
+[__datahub.io__](https://datahub.io/sports-data/english-premier-league#data)
 
 
 
