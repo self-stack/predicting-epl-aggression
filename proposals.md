@@ -18,7 +18,7 @@ Historical data on Billboard's Hot 100, Billboard 200, Artists 100. I will only 
 **Data:**
 
 ## 3. Predict EPL championship qualifier teams
-**Description:** I would like to predict which to 2 teams out of the 40 in the EPL will be championship qualifiers (league's superbowl).<br>
+**Description:** I would like to predict which to 2 teams out of the 40 in the English Premier League (soccer) will be championship qualifiers (league's superbowl).<br>
 **My Approach:** Random Forest to classify team as qualifier or not.<br>
 **Deliverables** (How will people react): I will deliver my findngs in a markdown file in my repo and slides for presentations.<br>
 **Data:**<br>
