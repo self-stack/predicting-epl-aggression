@@ -64,11 +64,11 @@ def model_prep():
     
 
 
-_
 
 
- if __name__ == '__main__':
+
+if __name__ == '__main__':
+    df, team_options = csv_to_df()
      
      
-     
-     #menu for team
+    #menu for team
