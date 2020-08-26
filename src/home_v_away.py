@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import os
 
 def csv_to_df():
     season_18_19 = pd.read_csv('../data/premier_league/season-1819_csv.csv')
@@ -36,7 +37,7 @@ def csv_to_df():
 
     return game_stats, game_stats.HomeTeam.unique()
 
-def home_away_df_build(df, team):
+def full_record_df_build(df, team):
     '''
     Creates data frame with engineered features based on team passed in.
 
@@ -68,7 +69,28 @@ def model_prep():
 
 
 if __name__ == '__main__':
+    # print(os.chdir)
     df, team_options = csv_to_df()
+    # print(team_options)
+
+    team_selection_prompt='\n\nSelect a team from the options below:'
+    team_selected = False
+    
+    while not team_selected:
+        print(team_selection_prompt)
+        print(team_options)
+        print()
+        # team_selected = True
+
+        inp = str(input('>>>'))
+
+        if inp in team_options:
+            full_record_df_build(df, inp)
+            team_selected = True
+        else:
+            print('Try Again\n')
+            continue
+
      
      
     #menu for team
