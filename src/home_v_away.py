@@ -1,5 +1,8 @@
 import pandas as pd
 import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import confusion_matrix, precision_score, recall_score
 import os
 
 def csv_to_df():
@@ -41,7 +44,7 @@ def csv_to_df():
     game_stats.drop(['Half_Goals_H','Half_Goals_A', 'Half_Result','Referee'],
             axis=1, inplace=True)
 
-    print('Provided {0}'.format(game_stats)
+    print('\n\nProvided {0} Features'.format(len(stat_features)))
 
     return game_stats, game_stats.HomeTeam.unique()
 
@@ -68,6 +71,7 @@ def team_record_df_build(df, team):
     '''
     team_home = df[df.HomeTeam == team]
     team_away = df[df.AwayTeam == team]
+    games_played_train_set = len(team_home[team_home.Season <=8]) + len(team_away[team_away.Season <=8])
 
     print('\n{0} W/L/D Distribution Season \'09-\'17'.format(team))
     total_wins = np.sum(team_home[team_home.Season <=8].Final_Result == 'H') + np.sum(team_away[team_away.Season <=8].Final_Result == 'A')
@@ -76,10 +80,10 @@ def team_record_df_build(df, team):
     print('''
     Team Win Percentage: {0:0.2f}%
     Team Loss Percentage: {1:0.2f}%
-    Team Draw Percentage: {2:0.2f}%'''.format((total_wins/len(team_home[team_home.Season <= 8] +team_away))*100, 
-                                            (total_loss/len(team_home+team_away))*100,
-                                            (total_draw/len(team_home+team_away))*100))
-
+    Team Draw Percentage: {2:0.2f}%'''.format((total_wins/games_played_train_set)*100, 
+                                            (total_loss/games_played_train_set)*100,
+                                            (total_draw/games_played_train_set)*100))
+    
     return team_home, team_away
 
 
@@ -119,7 +123,8 @@ def initialize_team_record(home, away):
 
     # masking HFA feature as bool
     # creating new features with this mask 
-    full_record.Home_Field_Advantage.astype(dtype='bool')
+    full_record.Home_Field_Advantage = full_record.Home_Field_Advantage.astype(dtype='bool')
+    # full_record.info()
     full_record['Shot_Accuracy_H'] = np.where(full_record.Home_Field_Advantage, full_record.Target_Shots_H/full_record.Shots_H, 0)
     full_record['Shot_Accuracy_A'] = np.where(~full_record.Home_Field_Advantage, full_record.Target_Shots_A/full_record.Shots_A, 0)
     full_record.drop(['Shots_H', 'Shots_A', 'Target_Shots_H', 'Target_Shots_A'], axis=1, inplace=True)
@@ -144,15 +149,29 @@ def initialize_team_record(home, away):
     full_record.columns = eng_feature_list
     full_record = full_record[ordered_eng_feature_list]
     
-    full_record.info()
+    print('\nRestricting to {0} Features'.format(len(full_record.columns)))
+    # full_record.info()
 
     return full_record
 
 
 def eda(df, team):
+    #  keep as bool??
+    # df.home_field_advantage = dfd.home_Field_Advantage.astype(dtype='int64')
     pass
     
-def rf_model(X, y):
+def rf_model(df):
+    # sklearn.model_selection.TimeSeriesSplit??
+    train, test = df[df.season_num <=8], df[df.season_num > 8]
+    y_train, y_test = train.pop('home_reds'), test.pop('home_reds')
+    X_train, X_test = train.values, test.values
+    
+    rf = RandomForestClassifier()
+    rf.fit(X_train, y_train)
+    print('Score: {0:0.2f}'.format(rf.score(X_test, y_test)*100))
+    y_predict = rf.predict(X_test)
+    print('Confusion Matrix:')
+    print(confusion_matrix(y_test, y_predict))
 
 
 
@@ -173,8 +192,9 @@ if __name__ == '__main__':
             home, away = team_record_df_build(df, team)
             full_record = dummyize_match_results(home, away)
             # eda(full_record, team)
+            rf_model(full_record)
 
-            another = input('\nWould you like to view anothe team? (y/n)')
+            another = input('\nWould you like to view another team? (y/n)')
 
             if another == 'y':
                 continue
