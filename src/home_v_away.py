@@ -109,7 +109,7 @@ def dummyize_match_results(home, away):
 
     return initialize_team_record(home, away)
 
-def initialize_team_record(home, away):
+def initialize_team_record(team, home, away):
 
     eng_feature_list = ['home_goals', 'away_goals', 'home_fouls', 'away_fouls', 'home_corners', 
             'away_corners', 'home_yellows', 'away_yellows', 'home_reds', 'away_reds', 'season_num',
@@ -131,7 +131,7 @@ def initialize_team_record(home, away):
     full_record['Final_D'] = full_record.Home_Final_D + full_record.Away_Final_D
     # full_record.drop(['Home_Final_D', 'Away_Final_D'], axis=1, inplace=True)
     full_record = full_record.sort_index()[::-1]
-    full_record['Home_Field_Advantage'] = np.where(full_record.HomeTeam == 'Man City', 1, 0)
+    full_record['Home_Field_Advantage'] = np.where(full_record.HomeTeam == team, 1, 0)
     full_record.drop(['Home_Final_D', 'Away_Final_D','HomeTeam', 'AwayTeam', 'Final_Result'], axis=1, inplace=True)
 
     # masking HFA feature as bool
