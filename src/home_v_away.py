@@ -6,6 +6,18 @@ from sklearn.metrics import confusion_matrix, precision_score, recall_score
 import os
 
 def csv_to_df():
+    '''
+    Creates df from csv's. Adds season tracker (1-10). Pull pertinent game statistics
+
+    
+    Returns
+    ----------
+    game_stats: (DataFrame)
+        DataFrame of 10 season csv's.
+    
+    home_df: (DataFrame)
+        DataFrame of when provided team is home team.
+    '''
     season_18_19 = pd.read_csv('../data/premier_league/season-1819_csv.csv')
     season_17_18 = pd.read_csv('../data/premier_league/season-1718_csv.csv')
     season_16_17 = pd.read_csv('../data/premier_league/season-1617_csv.csv')
@@ -88,6 +100,7 @@ def team_record_df_build(df, team):
 
 
 def dummyize_match_results(home, away):
+    #dummyize and initialize
     home_final_dummies = pd.get_dummies(home.Final_Result, prefix='Home_Final', drop_first=True)
     home = pd.concat([home, home_final_dummies], axis=1)
     away_final_dummies = pd.get_dummies(away.Final_Result, prefix='Away_Final')
@@ -150,7 +163,7 @@ def initialize_team_record(home, away):
     full_record = full_record[ordered_eng_feature_list]
     
     print('\nRestricting to {0} Features'.format(len(full_record.columns)))
-    # full_record.info()
+    full_record.info()
 
     return full_record
 
@@ -163,6 +176,7 @@ def eda(df, team):
 def rf_model(df):
     # sklearn.model_selection.TimeSeriesSplit??
     train, test = df[df.season_num <=8], df[df.season_num > 8]
+    # pop season_num, drop in assignement to keep for eda tracking?
     y_train, y_test = train.pop('home_reds'), test.pop('home_reds')
     X_train, X_test = train.values, test.values
     
