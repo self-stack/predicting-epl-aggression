@@ -41,6 +41,8 @@ def csv_to_df():
     game_stats.drop(['Half_Goals_H','Half_Goals_A', 'Half_Result','Referee'],
             axis=1, inplace=True)
 
+    print('Provided {0}'.format(game_stats)
+
     return game_stats, game_stats.HomeTeam.unique()
 
 def team_record_df_build(df, team):
@@ -74,14 +76,84 @@ def team_record_df_build(df, team):
     print('''
     Team Win Percentage: {0:0.2f}%
     Team Loss Percentage: {1:0.2f}%
-    Team Draw Percentage: {2:0.2f}%'''.format((total_wins/len(team_home+team_away))*100, 
+    Team Draw Percentage: {2:0.2f}%'''.format((total_wins/len(team_home[team_home.Season <= 8] +team_away))*100, 
                                             (total_loss/len(team_home+team_away))*100,
                                             (total_draw/len(team_home+team_away))*100))
 
+    return team_home, team_away
 
-def model_prep():
+
+def dummyize_match_results(home, away):
+    home_final_dummies = pd.get_dummies(home.Final_Result, prefix='Home_Final', drop_first=True)
+    home = pd.concat([home, home_final_dummies], axis=1)
+    away_final_dummies = pd.get_dummies(away.Final_Result, prefix='Away_Final')
+    away = pd.concat([away, away_final_dummies], axis=1)
+    away.drop('Away_Final_H', axis=1, inplace=True)
+
+    return initialize_team_record(home, away)
+
+def initialize_team_record(home, away):
+
+    eng_feature_list = ['home_goals', 'away_goals', 'home_fouls', 'away_fouls', 'home_corners', 
+            'away_corners', 'home_yellows', 'away_yellows', 'home_reds', 'away_reds', 'season_num',
+            'home_win', 'away_win', 'draw', 'home_field_advantage', 'home_on_target_accuracy',
+            'away_on_target_accuracy']
+    
+    ordered_eng_feature_list = ['home_field_advantage', 'home_goals', 'away_goals','home_on_target_accuracy',
+            'away_on_target_accuracy', 'home_fouls', 'away_fouls', 'home_reds', 'away_reds', 'home_yellows',
+            'away_yellows', 'home_win', 'away_win', 'draw', 'home_corners', 'away_corners', 'season_num']
+
+
+
+
+    full_record = pd.concat([home, away])
+    full_record.Home_Final_D.fillna(0, inplace=True)
+    full_record.Away_Final_D.fillna(0, inplace=True)
+    full_record.Home_Final_H.fillna(0, inplace=True)
+    full_record.Away_Final_A.fillna(0, inplace=True)
+    full_record['Final_D'] = full_record.Home_Final_D + full_record.Away_Final_D
+    # full_record.drop(['Home_Final_D', 'Away_Final_D'], axis=1, inplace=True)
+    full_record = full_record.sort_index()[::-1]
+    full_record['Home_Field_Advantage'] = np.where(full_record.HomeTeam == 'Man City', 1, 0)
+    full_record.drop(['Home_Final_D', 'Away_Final_D','HomeTeam', 'AwayTeam', 'Final_Result'], axis=1, inplace=True)
+
+    # masking HFA feature as bool
+    # creating new features with this mask 
+    full_record.Home_Field_Advantage.astype(dtype='bool')
+    full_record['Shot_Accuracy_H'] = np.where(full_record.Home_Field_Advantage, full_record.Target_Shots_H/full_record.Shots_H, 0)
+    full_record['Shot_Accuracy_A'] = np.where(~full_record.Home_Field_Advantage, full_record.Target_Shots_A/full_record.Shots_A, 0)
+    full_record.drop(['Shots_H', 'Shots_A', 'Target_Shots_H', 'Target_Shots_A'], axis=1, inplace=True)
+    # matching features to masked bool, zeroing others
+    # Final Goals
+    full_record.Final_Goals_H = np.where(full_record.Home_Field_Advantage, full_record.Final_Goals_H, 0)
+    full_record.Final_Goals_A = np.where(~full_record.Home_Field_Advantage, full_record.Final_Goals_A, 0)
+    # Fouls
+    full_record.Fouls_H = np.where(full_record.Home_Field_Advantage, full_record.Fouls_H, 0)
+    full_record.Fouls_A = np.where(~full_record.Home_Field_Advantage, full_record.Fouls_A, 0)
+    # Corners
+    full_record.Corners_H = np.where(full_record.Home_Field_Advantage, full_record.Corners_H, 0)
+    full_record.Corners_A = np.where(~full_record.Home_Field_Advantage, full_record.Corners_A, 0)
+    # Yellows
+    full_record.Yellow_H = np.where(full_record.Home_Field_Advantage, full_record.Yellow_H, 0)
+    full_record.Yellow_A = np.where(~full_record.Home_Field_Advantage, full_record.Yellow_A, 0)
+    # Red
+    full_record.Red_H = np.where(full_record.Home_Field_Advantage, full_record.Red_H, 0)
+    full_record.Red_A = np.where(~full_record.Home_Field_Advantage, full_record.Red_A, 0)
+    
+    #re-label and re-order columns
+    full_record.columns = eng_feature_list
+    full_record = full_record[ordered_eng_feature_list]
+    
+    full_record.info()
+
+    return full_record
+
+
+def eda(df, team):
     pass
     
+def rf_model(X, y):
+
 
 
 
@@ -98,7 +170,10 @@ if __name__ == '__main__':
         team = input('>>>')
 
         if team in team_options:
-            team_record_df_build(df, team)
+            home, away = team_record_df_build(df, team)
+            full_record = dummyize_match_results(home, away)
+            # eda(full_record, team)
+
             another = input('\nWould you like to view anothe team? (y/n)')
 
             if another == 'y':
