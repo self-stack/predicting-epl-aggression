@@ -34,7 +34,7 @@ def csv_to_df():
     game_stats.drop(['Half_Goals_H','Half_Goals_A', 'Half_Result','Referee'],
             axis=1, inplace=True)
 
-    return game_stats #plus options for team
+    return game_stats, game_stats.HomeTeam.unique()
 
 def home_away_df_build(df, team):
     '''
