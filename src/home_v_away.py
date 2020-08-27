@@ -100,7 +100,7 @@ def team_record_df_build(df, team):
 
 
 def dummyize_match_results(home, away):
-    #dummyize and initialize
+    #dummyize_and_initialize_match_results
     home_final_dummies = pd.get_dummies(home.Final_Result, prefix='Home_Final', drop_first=True)
     home = pd.concat([home, home_final_dummies], axis=1)
     away_final_dummies = pd.get_dummies(away.Final_Result, prefix='Away_Final')
@@ -109,7 +109,7 @@ def dummyize_match_results(home, away):
 
     return initialize_team_record(home, away)
 
-def initialize_team_record(team, home, away):
+def initialize_team_record( home, away):
 
     eng_feature_list = ['home_goals', 'away_goals', 'home_fouls', 'away_fouls', 'home_corners', 
             'away_corners', 'home_yellows', 'away_yellows', 'home_reds', 'away_reds', 'season_num',
@@ -120,9 +120,6 @@ def initialize_team_record(team, home, away):
             'away_on_target_accuracy', 'home_fouls', 'away_fouls', 'home_reds', 'away_reds', 'home_yellows',
             'away_yellows', 'home_win', 'away_win', 'draw', 'home_corners', 'away_corners', 'season_num']
 
-
-
-
     full_record = pd.concat([home, away])
     full_record.Home_Final_D.fillna(0, inplace=True)
     full_record.Away_Final_D.fillna(0, inplace=True)
@@ -131,6 +128,7 @@ def initialize_team_record(team, home, away):
     full_record['Final_D'] = full_record.Home_Final_D + full_record.Away_Final_D
     # full_record.drop(['Home_Final_D', 'Away_Final_D'], axis=1, inplace=True)
     full_record = full_record.sort_index()[::-1]
+
     full_record['Home_Field_Advantage'] = np.where(full_record.HomeTeam == team, 1, 0)
     full_record.drop(['Home_Final_D', 'Away_Final_D','HomeTeam', 'AwayTeam', 'Final_Result'], axis=1, inplace=True)
 
@@ -141,22 +139,23 @@ def initialize_team_record(team, home, away):
     full_record['Shot_Accuracy_H'] = np.where(full_record.Home_Field_Advantage, full_record.Target_Shots_H/full_record.Shots_H, 0)
     full_record['Shot_Accuracy_A'] = np.where(~full_record.Home_Field_Advantage, full_record.Target_Shots_A/full_record.Shots_A, 0)
     full_record.drop(['Shots_H', 'Shots_A', 'Target_Shots_H', 'Target_Shots_A'], axis=1, inplace=True)
-    # matching features to masked bool, zeroing others
+    # matching features to masked bool, replacing with alt
+    alt = 0
     # Final Goals
-    full_record.Final_Goals_H = np.where(full_record.Home_Field_Advantage, full_record.Final_Goals_H, 0)
-    full_record.Final_Goals_A = np.where(~full_record.Home_Field_Advantage, full_record.Final_Goals_A, 0)
+    full_record.Final_Goals_H = np.where(full_record.Home_Field_Advantage, full_record.Final_Goals_H, alt)
+    full_record.Final_Goals_A = np.where(~full_record.Home_Field_Advantage, full_record.Final_Goals_A, alt)
     # Fouls
-    full_record.Fouls_H = np.where(full_record.Home_Field_Advantage, full_record.Fouls_H, 0)
-    full_record.Fouls_A = np.where(~full_record.Home_Field_Advantage, full_record.Fouls_A, 0)
+    full_record.Fouls_H = np.where(full_record.Home_Field_Advantage, full_record.Fouls_H, alt)
+    full_record.Fouls_A = np.where(~full_record.Home_Field_Advantage, full_record.Fouls_A, alt)
     # Corners
-    full_record.Corners_H = np.where(full_record.Home_Field_Advantage, full_record.Corners_H, 0)
-    full_record.Corners_A = np.where(~full_record.Home_Field_Advantage, full_record.Corners_A, 0)
+    full_record.Corners_H = np.where(full_record.Home_Field_Advantage, full_record.Corners_H, alt)
+    full_record.Corners_A = np.where(~full_record.Home_Field_Advantage, full_record.Corners_A, alt)
     # Yellows
-    full_record.Yellow_H = np.where(full_record.Home_Field_Advantage, full_record.Yellow_H, 0)
-    full_record.Yellow_A = np.where(~full_record.Home_Field_Advantage, full_record.Yellow_A, 0)
+    full_record.Yellow_H = np.where(full_record.Home_Field_Advantage, full_record.Yellow_H, alt)
+    full_record.Yellow_A = np.where(~full_record.Home_Field_Advantage, full_record.Yellow_A, alt)
     # Red
-    full_record.Red_H = np.where(full_record.Home_Field_Advantage, full_record.Red_H, 0)
-    full_record.Red_A = np.where(~full_record.Home_Field_Advantage, full_record.Red_A, 0)
+    full_record.Red_H = np.where(full_record.Home_Field_Advantage, full_record.Red_H, alt)
+    full_record.Red_A = np.where(~full_record.Home_Field_Advantage, full_record.Red_A, alt)
     
     #re-label and re-order columns
     full_record.columns = eng_feature_list
@@ -200,6 +199,7 @@ if __name__ == '__main__':
     while not team_selected:
         print(team_selection_prompt)
         print(team_options)
+        # MAKE team GLOBAL VARIABLE
         team = input('>>>')
 
         if team in team_options:
