@@ -1,8 +1,5 @@
 import df_build as build
-from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import confusion_matrix, precision_score, recall_score
-import os
 
 
 def eda(df, team):

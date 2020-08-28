@@ -3,7 +3,7 @@ import pandas as pd
 
 def csv_to_df():
     '''
-    Creates df from csv's. Adds season tracker (1-10). Pulls pertinent game statistics
+    Creates df from csv's. Adds season tracker (1-10). Pulls pertinent game statistics.
 
     
     Returns
@@ -152,13 +152,13 @@ def df_feature_organization(df):
     Parameters
     ----------
     df: (DataFrame)
-        DataFrame focused on team in question.
+        DataFrame focused on team in anlysis.
 
 
     Returns
     ----------
     df: (DataFrame)
-        DataFrame of when provided team is away team.
+        Full record of team in analysis.
     '''
     col_list = ['season_num', 'draw', 'win', 'home_advan', 'opponent', 'team_goals', 'oppon_goals',
             'team_shots', 'oppon_shots', 'team_target_shots', 'oppon_target_shots', 'team_fouls', 'oppon_fouls',
@@ -186,9 +186,11 @@ def df_feature_organization(df):
     # yellows
     df['team_yellows'] = np.where(df.Home_Field_Advantage, df.Yellow_H, df.Yellow_A)
     df['oppon_yellows'] = np.where(~df.Home_Field_Advantage, df.Yellow_H, df.Yellow_A)
-    # reds
+    # reds, binary flag for if red flag given or not
     df['team_reds'] = np.where(df.Home_Field_Advantage, df.Red_H, df.Red_A)
+    df.team_reds = np.where(df.team_reds > 0, 1, 0)
     df['oppon_reds'] = np.where(~df.Home_Field_Advantage, df.Red_H, df.Red_A)
+    # df.team_reds = np.where(df.team_reds > 0, 1, 0)
 
 
     # del
