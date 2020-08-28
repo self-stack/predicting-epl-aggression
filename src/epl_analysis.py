@@ -12,8 +12,8 @@ def rf_model(df):
     df: (DataFrame)
         Full record of team in analysis.
     '''
-    game_to_predict = '2019-10-02'
-    model_data = team_focus.copy()
+    season_hist = 8
+    model_data = df.copy()
     # construct target feature
     y = model_data.pop('team_reds')
     y = y[y.index < game_to_predict]
@@ -60,7 +60,8 @@ if __name__ == '__main__':
         team = input('>>>')
 
         if team in season_20_21_team_options:
-            record = build.df_team_focus(df, team)
+            rf_model(build.df_team_focus(df, team))
+
 
             another = input('\nWould you like to view another team? (y/n)')
 

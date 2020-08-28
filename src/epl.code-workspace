@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "../data"
+		},
+		{
+			"path": "../img"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"python.pythonPath": "/Users/zschulzb/anaconda3/bin/python"
+	}
+}

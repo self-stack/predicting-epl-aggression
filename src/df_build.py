@@ -111,27 +111,7 @@ def df_team_focus(df, team):
 
 
 def dummyize_match_results(home, away):
-    '''
-    Dummy-izes Final Result for home and away seperately.
-
-
-    Parameters
-    ----------
-    away: (DataFrame)
-        DataFrame of when provided team is away team.
     
-    home: (DataFrame)
-        DataFrame of when provided team is home team.
-
-
-    Returns
-    ----------
-    away: (DataFrame)
-        DataFrame of when provided team is away team.
-    
-    home: (DataFrame)
-        DataFrame of when provided team is home team.
-    '''
     home_final_dummies = pd.get_dummies(home.Final_Result, prefix='Home_Final')
     away_final_dummies = pd.get_dummies(away.Final_Result, prefix='Away_Final')
     home = pd.concat([home, home_final_dummies], axis=1)
