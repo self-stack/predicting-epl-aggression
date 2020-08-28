@@ -1,25 +1,42 @@
 import df_build as build
-from sklearn.metrics import confusion_matrix, precision_score, recall_score
+from imblearn.ensemble import BalancedRandomForestClassifier
+from sklearn.metrics import confusion_matrix
 
-
-def eda(df, team):
-    #  keep as bool??
-    # df.home_field_advantage = dfd.home_Field_Advantage.astype(dtype='int64')
-    pass
-    
 def rf_model(df):
-    # sklearn.model_selection.TimeSeriesSplit??
-    train, test = df[df.season_num <=8], df[df.season_num > 8]
-    # pop season_num, drop in assignement to keep for eda tracking?
-    y_train, y_test = train.pop('home_reds'), test.pop('home_reds')
-    X_train, X_test = train.values, test.values
+    '''
+    Model prep and run to predict if game will have a red flag.
+
+
+    Parameters
+    ----------
+    df: (DataFrame)
+        Full record of team in analysis.
+    '''
+    game_to_predict = '2019-10-02'
+    model_data = team_focus.copy()
+    # construct target feature
+    y = model_data.pop('team_reds')
+    y = y[y.index < game_to_predict]
+    y.shift()
+    y_train, y_test = y[100:], y[:100]
+    # construct model data
+    X = model_data.drop(['opponent', 'season_num'], axis=1)
+    home_flag = X.pop('home_advan')
+    X = X.sort_index().rolling(3).mean()
+    X = X.sort_index()[::-1]
+    X.insert(0, 'home_advan', home_flag)
+    X_train, X_test = X[100:-2], X[:100]
     
-    rf = RandomForestClassifier()
-    rf.fit(X_train, y_train)
-    print('Score: {0:0.2f}'.format(rf.score(X_test, y_test)*100))
-    y_predict = rf.predict(X_test)
-    print('Confusion Matrix:')
-    print(confusion_matrix(y_test, y_predict))
+    # predictive model
+    bal_rf = BalancedRandomForestClassifier()
+    bal_rf.fit(X_train, y_train)
+
+    # model metric
+    print('Scoring OOB: {0}'.format(bal_rf.score(X_test, y_test)))
+
+    y_predict = bal_rf.predict(X_test)
+    print('Confusion Matrix: {0}'.format(y_test, y_predict))
+
 
 
 
@@ -39,12 +56,11 @@ if __name__ == '__main__':
     while not team_selected:
         print(team_selection_prompt)
         print(season_20_21_team_options)
-        # MAKE team GLOBAL VARIABLE
+        # TODO: MAKE team GLOBAL VARIABLE
         team = input('>>>')
 
         if team in season_20_21_team_options:
             record = build.df_team_focus(df, team)
-            record.info()
 
             another = input('\nWould you like to view another team? (y/n)')
 
