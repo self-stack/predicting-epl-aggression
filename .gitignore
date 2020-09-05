@@ -1,0 +1,16 @@
+# ignore notebooks, workspaces and unused scripts
+src/notebooks
+redcards.code-workspace
+src/epl.code-workspace
+src/home_v_away.py
+src/__pycache__
+
+# ignore initial proposal
+proposals.md
+
+# ignore flask app folders
+app/
+flash_templates/
+
+# ignore data excel
+data/data_dict.xlsx
