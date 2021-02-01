@@ -14,3 +14,6 @@ flash_templates/
 
 # ignore data excel
 data/data_dict.xlsx
+
+# misc
+data/.DS_Store
